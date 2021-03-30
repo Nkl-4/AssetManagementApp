@@ -11,7 +11,7 @@ import com.cg.ama.exception.WarehouseNotFoundException;
 import com.cg.ama.model.AssetModel;
 import com.cg.ama.repo.AssetRepo;
 import com.cg.ama.repo.WarehouseRepo;
-import com.cg.ama.service.admin.EMParser;
+import com.cg.ama.service.EMParser;
 
 @Service
 public class ManagerAssetServiceImpl implements IManagerAssetService {
@@ -24,6 +24,17 @@ public class ManagerAssetServiceImpl implements IManagerAssetService {
 	
 	@Autowired
 	private WarehouseRepo warehouseRepo;
+
+	public ManagerAssetServiceImpl() {
+		super();
+	}
+
+	public ManagerAssetServiceImpl(EMParser parser, AssetRepo assetRepo, WarehouseRepo warehouseRepo) {
+		super();
+		this.parser = parser;
+		this.assetRepo = assetRepo;
+		this.warehouseRepo = warehouseRepo;
+	}
 
 	@Override
 	public AssetModel getAssetById(long assetId) throws AssetNotFoundException {

@@ -12,6 +12,7 @@ import com.cg.ama.exception.AssetNotFoundException;
 import com.cg.ama.exception.DuplicateEntryException;
 import com.cg.ama.model.AssetModel;
 import com.cg.ama.repo.AssetRepo;
+import com.cg.ama.service.EMParser;
 
 
 @Service
@@ -21,8 +22,18 @@ public class AdminAssetServiceImpl implements IAdminAssetService{
 	private EMParser parser;
 	
 	@Autowired
-	private AssetRepo assetRepo;
+	private AssetRepo assetRepo;	
 	
+	public AdminAssetServiceImpl() {
+		super();
+	}
+
+	public AdminAssetServiceImpl(EMParser parser, AssetRepo assetRepo) {
+		super();
+		this.parser = new EMParser();
+		this.assetRepo = assetRepo;
+	}
+
 	@Override
 	public AssetModel getAssetById(Long assetId) throws AssetNotFoundException {
 		if (!assetRepo.existsById(assetId)) {
@@ -46,7 +57,7 @@ public class AdminAssetServiceImpl implements IAdminAssetService{
 	@Override
 	public List<AssetModel> getAssetList() throws AssetNotFoundException {
 		if (assetRepo.count() == 0) {
-			throw new AssetNotFoundException("No asset present with the given ID");
+			throw new AssetNotFoundException("No asset present in the DB");
 		}
 		return assetRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}

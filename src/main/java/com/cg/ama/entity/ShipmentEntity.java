@@ -132,6 +132,10 @@ public class ShipmentEntity {
 		return assetId;
 	}
 
+	public void setAssetId(long assetId) {
+		this.assetId = assetId;
+	}
+
 
 	@Override
 	public String toString() {

@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import com.cg.ama.exception.ShipmentNotFoundException;
 import com.cg.ama.model.ShipmentModel;
 import com.cg.ama.repo.ShipmentRepo;
-import com.cg.ama.service.admin.EMParser;
+import com.cg.ama.service.EMParser;
+
 
 @Service
 public class ManagerShipmentServiceImpl implements IManagerShipmentService {
@@ -20,6 +21,18 @@ public class ManagerShipmentServiceImpl implements IManagerShipmentService {
 	@Autowired
 	private ShipmentRepo shipmentRepo;
 	
+	public ManagerShipmentServiceImpl() {
+		super();
+	}
+
+
+	public ManagerShipmentServiceImpl(EMParser parser, ShipmentRepo shipmentRepo) {
+		super();
+		this.parser = parser;
+		this.shipmentRepo = shipmentRepo;
+	}
+
+
 	@Override
 	public ShipmentModel getShipmentById(Long shipmentId) throws ShipmentNotFoundException {
 		if (!shipmentRepo.existsById(shipmentId)) {

@@ -26,8 +26,7 @@ public class AddressEntity {
 		super();
 	}
 
-	public AddressEntity(@NotNull @Size(max = 50) String location, @Size(max = 50) String subLocation,
-			@NotNull @Size(max = 50) String state, @NotNull @Size(max = 50) String country) {
+	public AddressEntity(String location, String subLocation, String state, String country) {
 		super();
 		this.location = location;
 		this.subLocation = subLocation;

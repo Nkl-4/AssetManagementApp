@@ -14,6 +14,7 @@ import com.cg.ama.model.AssetModel;
 import com.cg.ama.model.WarehouseModel;
 import com.cg.ama.repo.AssetRepo;
 import com.cg.ama.repo.WarehouseRepo;
+import com.cg.ama.service.EMParser;
 
 
 @Service
@@ -28,6 +29,17 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	@Autowired
 	private AssetRepo assetRepo;
 	
+	public AdminWarehouseServiceImpl() {
+		super();
+	}
+
+	public AdminWarehouseServiceImpl(EMParser parser, WarehouseRepo warehouseRepo, AssetRepo assetRepo) {
+		super();
+		this.parser = parser;
+		this.warehouseRepo = warehouseRepo;
+		this.assetRepo = assetRepo;
+	}
+
 	@Override
 	public WarehouseModel getWareHouseById(Long warehouseId) throws WarehouseNotFoundException {
 		if (!warehouseRepo.existsById(warehouseId)) {

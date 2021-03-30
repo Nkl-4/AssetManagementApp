@@ -12,6 +12,7 @@ import com.cg.ama.exception.DuplicateEntryException;
 import com.cg.ama.exception.ShipmentNotFoundException;
 import com.cg.ama.model.ShipmentModel;
 import com.cg.ama.repo.ShipmentRepo;
+import com.cg.ama.service.EMParser;
 
 
 @Service
@@ -22,8 +23,17 @@ public class AdminShipmentServiceImpl implements IAdminShipmentService {
 	
 	@Autowired
 	private ShipmentRepo shipmentRepo;
-
 	
+	public AdminShipmentServiceImpl() {
+		super();
+	}
+
+	public AdminShipmentServiceImpl(EMParser parser, ShipmentRepo shipmentRepo) {
+		super();
+		this.parser = parser;
+		this.shipmentRepo = shipmentRepo;
+	}
+
 	@Override
 	public ShipmentModel getShipmentById(Long shipmentId) throws ShipmentNotFoundException {
 		if (!shipmentRepo.existsById(shipmentId)) {

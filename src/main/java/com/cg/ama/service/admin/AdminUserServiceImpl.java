@@ -12,6 +12,8 @@ import com.cg.ama.exception.DuplicateEntryException;
 import com.cg.ama.exception.UserNotFoundException;
 import com.cg.ama.model.UserModel;
 import com.cg.ama.repo.UserRepo;
+import com.cg.ama.service.EMParser;
+
 
 
 @Service
@@ -23,6 +25,16 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	@Autowired
 	private UserRepo userRepo;
 	
+	public AdminUserServiceImpl() {
+		super();
+	}
+
+	public AdminUserServiceImpl(EMParser parser, UserRepo userRepo) {
+		super();
+		this.parser = parser;
+		this.userRepo = userRepo;
+	}
+
 	@Override
 	public UserModel getUserById(Long userId) throws UserNotFoundException {
 		if (!userRepo.existsById(userId)) {

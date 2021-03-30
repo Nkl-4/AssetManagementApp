@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import com.cg.ama.exception.AssetNotFoundException;
 import com.cg.ama.model.AssetModel;
 import com.cg.ama.repo.AssetRepo;
-import com.cg.ama.service.admin.EMParser;
+import com.cg.ama.service.EMParser;
+
 
 @Service
 public class UserAssetServiceImpl implements IUserAssetService {
@@ -19,7 +20,18 @@ public class UserAssetServiceImpl implements IUserAssetService {
 	
 	@Autowired
 	private AssetRepo assetRepo;	
+
 	
+	public UserAssetServiceImpl() {
+		super();
+	}
+
+	public UserAssetServiceImpl(EMParser parser, AssetRepo assetRepo) {
+		super();
+		this.parser = parser;
+		this.assetRepo = assetRepo;
+	}
+
 	@Override
 	public AssetModel getAssetById(long assetId) throws AssetNotFoundException {
 		if (!assetRepo.existsById(assetId)) {

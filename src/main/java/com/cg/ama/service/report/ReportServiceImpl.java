@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.cg.ama.model.ShipmentModel;
 import com.cg.ama.repo.ShipmentRepo;
-import com.cg.ama.service.admin.EMParser;
+import com.cg.ama.service.EMParser;
+
 
 @Service
 public class ReportServiceImpl implements IReportService {
@@ -20,6 +21,16 @@ public class ReportServiceImpl implements IReportService {
 	@Autowired
 	private ShipmentRepo shipmentRepo;
 	
+	public ReportServiceImpl() {
+		super();
+	}
+
+	public ReportServiceImpl(EMParser parser, ShipmentRepo shipmentRepo) {
+		super();
+		this.parser = parser;
+		this.shipmentRepo = shipmentRepo;
+	}
+
 	@Override
 	public List<ShipmentModel> getShipmentsByWeek(int week, int month, int year) {
 		
