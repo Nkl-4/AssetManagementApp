@@ -31,7 +31,7 @@ public class ManagerAssetServiceImpl implements IManagerAssetService {
 
 	public ManagerAssetServiceImpl(EMParser parser, AssetRepo assetRepo, WarehouseRepo warehouseRepo) {
 		super();
-		this.parser = parser;
+		this.parser = new EMParser();
 		this.assetRepo = assetRepo;
 		this.warehouseRepo = warehouseRepo;
 	}
@@ -45,10 +45,7 @@ public class ManagerAssetServiceImpl implements IManagerAssetService {
 	}
 	
 	@Override
-	public List<AssetModel> getAssetList() throws AssetNotFoundException {
-		if (assetRepo.count() == 0) {
-			throw new AssetNotFoundException("No asset present with the given ID");
-		}
+	public List<AssetModel> getAssetList()  {
 		return assetRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 

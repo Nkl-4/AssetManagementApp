@@ -15,7 +15,6 @@ import com.cg.ama.repo.UserRepo;
 import com.cg.ama.service.EMParser;
 
 
-
 @Service
 public class AdminUserServiceImpl implements IAdminUserService {
 
@@ -29,9 +28,9 @@ public class AdminUserServiceImpl implements IAdminUserService {
 		super();
 	}
 
-	public AdminUserServiceImpl(EMParser parser, UserRepo userRepo) {
+	public AdminUserServiceImpl(UserRepo userRepo) {
 		super();
-		this.parser = parser;
+		this.parser = new EMParser();
 		this.userRepo = userRepo;
 	}
 
@@ -40,7 +39,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 		if (!userRepo.existsById(userId)) {
 			throw new UserNotFoundException("No user present with the given ID");
 		}
-		return parser.parse((userRepo.findById(userId).orElse(null)));
+		return parser.parse((userRepo.findById(userId).get()));
 	}
 	
 	@Transactional
@@ -57,10 +56,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	}
 
 	@Override
-	public List<UserModel> getUsers() throws UserNotFoundException {
-		if (userRepo.count() == 0) {
-			throw new UserNotFoundException("No user present with the given ID");
-		}
+	public List<UserModel> getUsers()  {
 		return userRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 

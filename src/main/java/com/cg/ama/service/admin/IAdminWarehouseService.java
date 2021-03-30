@@ -13,7 +13,7 @@ public interface IAdminWarehouseService {
 	
 	WarehouseModel addWarehouse(WarehouseModel wareHouseModel) throws DuplicateEntryException;
 	
-	List<WarehouseModel> getWarehouseList() throws WarehouseNotFoundException;
+	List<WarehouseModel> getWarehouseList();
 	
 	WarehouseModel modifyWarehouse(Long warehouseId, WarehouseModel wareHouseModel) throws WarehouseNotFoundException;
 	

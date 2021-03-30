@@ -28,7 +28,7 @@ public class UserShipmentServiceImpl implements IUserShipmentService {
 
 	public UserShipmentServiceImpl(EMParser parser, ShipmentRepo shipmentRepo) {
 		super();
-		this.parser = parser;
+		this.parser = new EMParser();
 		this.shipmentRepo = shipmentRepo;
 	}
 
@@ -43,10 +43,7 @@ public class UserShipmentServiceImpl implements IUserShipmentService {
 
 
 	@Override
-	public List<ShipmentModel> getShipments() throws ShipmentNotFoundException {
-		if (shipmentRepo.count() == 0) {
-			throw new ShipmentNotFoundException("No Shipment present with the given ID");
-		}
+	public List<ShipmentModel> getShipments() {
 		return shipmentRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 

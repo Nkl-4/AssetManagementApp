@@ -15,7 +15,7 @@ public interface IAdminShipmentService {
 	
 	ShipmentModel addShipment(ShipmentModel shipmentModel) throws DuplicateEntryException, AssetNotFoundException, WarehouseNotFoundException;
 	
-	List<ShipmentModel> getShipments() throws ShipmentNotFoundException;
+	List<ShipmentModel> getShipments();
 	
 	ShipmentModel modifyShipment(Long shipmentId, ShipmentModel shipmentModel) throws ShipmentNotFoundException;
 	

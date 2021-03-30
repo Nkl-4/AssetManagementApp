@@ -26,9 +26,9 @@ public class ManagerShipmentServiceImpl implements IManagerShipmentService {
 	}
 
 
-	public ManagerShipmentServiceImpl(EMParser parser, ShipmentRepo shipmentRepo) {
+	public ManagerShipmentServiceImpl(ShipmentRepo shipmentRepo) {
 		super();
-		this.parser = parser;
+		this.parser = new EMParser();
 		this.shipmentRepo = shipmentRepo;
 	}
 
@@ -43,10 +43,7 @@ public class ManagerShipmentServiceImpl implements IManagerShipmentService {
 
 
 	@Override
-	public List<ShipmentModel> getShipments() throws ShipmentNotFoundException {
-		if (shipmentRepo.count() == 0) {
-			throw new ShipmentNotFoundException("No Shipment present with the given ID");
-		}
+	public List<ShipmentModel> getShipments() {
 		return shipmentRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 	

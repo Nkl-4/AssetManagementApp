@@ -28,7 +28,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
 
 	public UserAssetServiceImpl(EMParser parser, AssetRepo assetRepo) {
 		super();
-		this.parser = parser;
+		this.parser = new EMParser();
 		this.assetRepo = assetRepo;
 	}
 
@@ -41,10 +41,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
 	}
 	
 	@Override
-	public List<AssetModel> getAssetList() throws AssetNotFoundException {
-		if (assetRepo.count() == 0) {
-			throw new AssetNotFoundException("No asset present with the given ID");
-		}
+	public List<AssetModel> getAssetList() {
 		return assetRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 

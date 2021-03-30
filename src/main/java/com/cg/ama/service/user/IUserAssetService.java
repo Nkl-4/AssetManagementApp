@@ -7,5 +7,5 @@ import com.cg.ama.model.AssetModel;
 
 public interface IUserAssetService {
 	AssetModel getAssetById(long assetId) throws AssetNotFoundException;
-	List<AssetModel> getAssetList() throws AssetNotFoundException;
+	List<AssetModel> getAssetList();
 }

@@ -27,7 +27,7 @@ public class ReportServiceImpl implements IReportService {
 
 	public ReportServiceImpl(EMParser parser, ShipmentRepo shipmentRepo) {
 		super();
-		this.parser = parser;
+		this.parser = new EMParser();
 		this.shipmentRepo = shipmentRepo;
 	}
 

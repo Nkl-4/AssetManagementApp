@@ -12,7 +12,7 @@ public interface IAdminUserService {
 	
 	UserModel addUser(UserModel userModel) throws DuplicateEntryException;
 	
-	List<UserModel> getUsers() throws UserNotFoundException;
+	List<UserModel> getUsers();
 	
 	UserModel modifyUser(Long userId, UserModel userModel) throws UserNotFoundException;
 	

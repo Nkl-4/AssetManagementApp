@@ -8,6 +8,6 @@ import com.cg.ama.model.ShipmentModel;
 public interface IUserShipmentService {
 	
 	ShipmentModel getShipmentById(Long shipmentId) throws ShipmentNotFoundException;
-	List<ShipmentModel> getShipments() throws ShipmentNotFoundException;
+	List<ShipmentModel> getShipments();
 	
 }

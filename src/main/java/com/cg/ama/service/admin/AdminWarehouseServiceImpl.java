@@ -31,13 +31,13 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	
 	public AdminWarehouseServiceImpl() {
 		super();
+		this.parser = new EMParser();
 	}
 
-	public AdminWarehouseServiceImpl(EMParser parser, WarehouseRepo warehouseRepo, AssetRepo assetRepo) {
+	public AdminWarehouseServiceImpl(WarehouseRepo warehouseRepo) {
 		super();
-		this.parser = parser;
+		this.parser = new EMParser();
 		this.warehouseRepo = warehouseRepo;
-		this.assetRepo = assetRepo;
 	}
 
 	@Override
@@ -61,10 +61,7 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	}
 
 	@Override
-	public List<WarehouseModel> getWarehouseList() throws WarehouseNotFoundException {
-		if (warehouseRepo.count() == 0) {
-			throw new WarehouseNotFoundException("No Warehouse present with the given ID");
-		}
+	public List<WarehouseModel> getWarehouseList() {
 		return warehouseRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 	

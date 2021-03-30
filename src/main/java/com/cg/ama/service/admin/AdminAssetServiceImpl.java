@@ -55,10 +55,7 @@ public class AdminAssetServiceImpl implements IAdminAssetService{
 	}
 
 	@Override
-	public List<AssetModel> getAssetList() throws AssetNotFoundException {
-		if (assetRepo.count() == 0) {
-			throw new AssetNotFoundException("No asset present in the DB");
-		}
+	public List<AssetModel> getAssetList(){
 		return assetRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 

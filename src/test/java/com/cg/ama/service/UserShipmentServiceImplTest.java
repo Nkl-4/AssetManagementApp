@@ -1,5 +1,8 @@
 package com.cg.ama.service;
 
+import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -19,57 +22,67 @@ import com.cg.ama.entity.ShipmentStatus;
 import com.cg.ama.exception.ShipmentNotFoundException;
 import com.cg.ama.model.ShipmentModel;
 import com.cg.ama.repo.ShipmentRepo;
-import com.cg.ama.service.admin.AdminShipmentServiceImpl;
+import com.cg.ama.service.user.UserShipmentServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class UserShipmentServiceImplTest {
 	
+	
 	@Mock
-	private ShipmentRepo adminshipmentrepo;
+	private ShipmentRepo shipmentRepo;
 
 	@InjectMocks
-	private AdminShipmentServiceImpl asImpl;
+	private UserShipmentServiceImpl service;
 	
-	@Test
-	@DisplayName("AdminShipmentServiceImpl::getById should return an existing ShipmentModel given existing id")
-	void testgetAssetById() throws ShipmentNotFoundException {
-		
-		ShipmentEntity testdata = new ShipmentEntity(22,1,201L,ShipmentStatus.SHIPPED,901L,701L,LocalDate.parse("2021-03-10"),LocalDate.parse("2021-03-13"));
-		ShipmentModel expected = new ShipmentModel(22,1,201,"SHIPPED",901,701,LocalDate.parse("2021-03-10"),LocalDate.parse("2021-03-13"));
-		
-		Mockito.when(adminshipmentrepo.existsById(testdata.getShipmentId()));
-//		existsById(testdata.getAssetId())).thenReturn(false);
-		Mockito.when(adminshipmentrepo.findById(testdata.getAssetId())).thenReturn(Optional.of(testdata));
-				
-		ShipmentModel actual=asImpl.getShipmentById(testdata.getShipmentId());
-		Assertions.assertEquals(expected, actual);
-	}
 	
-		
-		
 	@Test
 	@DisplayName("Shipment Details should retrive")
 	void testgetAllAsset() throws ShipmentNotFoundException {
 		
 		List<ShipmentEntity> testdata=Arrays.asList(new ShipmentEntity[] {
-				new ShipmentEntity(22L,1L,201L,ShipmentStatus.SHIPPED,901L,701L,LocalDate.parse("2021-03-10"),LocalDate.parse("2021-03-13")),
-				new ShipmentEntity(23L,2L,206L,ShipmentStatus.SHIPPED,907L,501L,LocalDate.parse("2021-04-12"),LocalDate.parse("2021-05-23"))
+				new ShipmentEntity(1L,1L,1L,ShipmentStatus.DISPATCHED,3L,1L,LocalDate.parse("2021-09-01"),LocalDate.parse("2021-08-27")),
+				new ShipmentEntity(23L,2L,206L,ShipmentStatus.DISPATCHED,907L,501L,LocalDate.parse("2021-04-12"),LocalDate.parse("2021-05-23"))
 		});
 		
-		Mockito.when(adminshipmentrepo.findAll()).thenReturn(testdata);
+		Mockito.when(shipmentRepo.findAll()).thenReturn(testdata);
 		
 		List<ShipmentModel> expected=Arrays.asList(new ShipmentModel[] {
-				new ShipmentModel(22L,1L,201L,"SHIPPED",901L,701L,LocalDate.parse("2021-03-10"),LocalDate.parse("2021-03-13")),
-				new ShipmentModel(23L,2L,206L,"SHIPPED",907L,501L,LocalDate.parse("2021-04-12"),LocalDate.parse("2021-05-23"))
+				new ShipmentModel(1L,1L,1L,ShipmentStatus.DISPATCHED,3L,1L,LocalDate.parse("2021-09-01"),LocalDate.parse("2021-08-27")),
+				new ShipmentModel(23L,2L,206L,ShipmentStatus.DISPATCHED,907L,501L,LocalDate.parse("2021-04-12"),LocalDate.parse("2021-05-23"))
 		});
 		
-		List<ShipmentModel> actual = asImpl.getShipments();
+		List<ShipmentModel> actual = service.getShipments();
 		
-		Assertions.assertEquals(expected,actual);
+		assertEquals(expected, actual);
 
 	}
 	
+	@Test
+	@DisplayName("ManagementShipmentServiceImpl::get by id return null")
+	void testGetByIdNull()  {		
 		
+		
+		ShipmentModel actual = null;
+		try {
+			actual = service.getShipmentById(9L);
+		} catch (ShipmentNotFoundException e) {
+		}
+		assertNull(actual);
+	}
+		
+	@Test
+	@DisplayName("ManagerShipmentServiceImpl::getById should return an existing ShipmentModel given existing id")
+	void testgetShipmentById() throws ShipmentNotFoundException {
+		
+		ShipmentEntity testdata = new ShipmentEntity(1L,1L,1L,ShipmentStatus.DISPATCHED,3L,1L,LocalDate.parse("2021-09-01"),LocalDate.parse("2021-08-27"));
+		ShipmentModel expected = new ShipmentModel(1L,1L,1L,ShipmentStatus.DISPATCHED,3L,1L,LocalDate.parse("2021-09-01"),LocalDate.parse("2021-08-27"));
+		
+		Mockito.when(shipmentRepo.existsById(testdata.getAssetId())).thenReturn(true);
+		Mockito.when(shipmentRepo.findById(testdata.getAssetId())).thenReturn(Optional.of(testdata));
+				
+		ShipmentModel actual= service.getShipmentById(testdata.getShipmentId());
+		Assertions.assertEquals(expected, actual);
+	}		
 		
 		
 }

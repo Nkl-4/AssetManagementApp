@@ -9,7 +9,7 @@ public interface IManagerShipmentService {
 	
 	ShipmentModel getShipmentById(Long shipmentId) throws ShipmentNotFoundException;
 	
-	List<ShipmentModel> getShipments() throws ShipmentNotFoundException;
+	List<ShipmentModel> getShipments();
 	
 	ShipmentModel modifyShipment(Long shipmentId, ShipmentModel shipmentModel) throws ShipmentNotFoundException;
 	
