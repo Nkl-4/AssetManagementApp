@@ -249,7 +249,7 @@ public class AdminRestController {
 		return ResponseEntity.ok(reportService.getShipmentsByWeek(week, month, year));
 	}
 	
-	@GetMapping("/shipments/report/weekly")
+	@GetMapping("/shipments/report/general/weekly")
 	public ResponseEntity<List<ShipmentModel>> findAllByWeekly(){
 		return ResponseEntity.ok(reportService.findAllByWeekly());
 	}

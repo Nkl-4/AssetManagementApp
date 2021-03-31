@@ -28,7 +28,7 @@ public class AdminAssetServiceImpl implements IAdminAssetService{
 		super();
 	}
 
-	public AdminAssetServiceImpl(EMParser parser, AssetRepo assetRepo) {
+	public AdminAssetServiceImpl(AssetRepo assetRepo) {
 		super();
 		this.parser = new EMParser();
 		this.assetRepo = assetRepo;

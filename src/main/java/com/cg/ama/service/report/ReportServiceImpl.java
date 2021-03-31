@@ -36,21 +36,20 @@ public class ReportServiceImpl implements IReportService {
 		
 		LocalDate startDate = LocalDate.of(year, month-1, 1);
 		LocalDate endDate;
-		
 		switch (week) {
 		case 1:
 			endDate = startDate.plusDays(6);
 			break;
 		case 2:
-			startDate = startDate.plusWeeks(1);
+			startDate = startDate.plusDays(7);
 			endDate = startDate.plusDays(6);
 			break;
 		case 3:
-			startDate = startDate.plusWeeks(2);
+			startDate = startDate.plusDays(14);
 			endDate = startDate.plusDays(6);
 			break;
 		case 4:
-			startDate = startDate.plusWeeks(3);
+			startDate = startDate.plusDays(21);
 			endDate = startDate.plusDays(6);
 			break;
 		default:

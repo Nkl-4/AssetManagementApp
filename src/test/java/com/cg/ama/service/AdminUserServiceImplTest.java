@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -57,18 +54,6 @@ public class AdminUserServiceImplTest {
 		assertEquals(expected, actual);
 	}
 	
-//	@Test
-//	@DisplayName("Get By Id")
-//	void testGetById() throws UserNotFoundException {
-//		UserEntity testdata = new UserEntity(1, "ADMIN", "12345", UserType.ADMIN);
-//		UserModel expected = new UserModel(1, "ADMIN", "12345", UserType.ADMIN);
-//		
-//		Mockito.when(userRepo.findById(testdata.getUserId())).thenReturn(Optional.of(testdata));
-//		
-//		UserModel actual = service.getUserById(testdata.getUserId());
-//		Assertions.assertEquals(expected, actual);
-//	}
-//	
 	
 	@Test
 	@DisplayName("get by id return null")
