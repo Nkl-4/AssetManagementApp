@@ -17,4 +17,6 @@ public interface IAdminUserService {
 	UserModel modifyUser(Long userId, UserModel userModel) throws UserNotFoundException;
 	
 	String deleteUserById(Long userId) throws UserNotFoundException;
+	
+	UserModel userLogin(String userId, String userPass) throws UserNotFoundException;
 }

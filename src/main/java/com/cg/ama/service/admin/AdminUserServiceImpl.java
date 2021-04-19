@@ -86,4 +86,20 @@ public class AdminUserServiceImpl implements IAdminUserService {
 				
 	}
 
+	@Override
+	public UserModel userLogin(String userName, String userPass) throws UserNotFoundException {
+		if(!userRepo.existsByUserName(userName)) {
+			throw new UserNotFoundException("User Not present in DB.");
+		}
+		
+		UserModel userFromDb = parser.parse(userRepo.findByUserName(userName));
+		
+		if(!userFromDb.getUserPassword().equals(userPass)) {
+			throw new UserNotFoundException("Wrong Password");
+		}
+
+		
+		return userFromDb;
+	}
+
 }

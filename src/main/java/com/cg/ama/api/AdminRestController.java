@@ -55,6 +55,13 @@ public class AdminRestController {
 	@Autowired
 	private IAdminWarehouseService adminWarehouseService;
 	
+	// -------------------------------------- LOGIN -------------------------------------------------		
+	
+	@PostMapping("/login")
+	public ResponseEntity<UserModel> checkUserCred(@RequestBody UserModel userModel, BindingResult result) throws UserNotFoundException {
+		return ResponseEntity.ok(adminUserService.userLogin(userModel.getUserName(),userModel.getUserPassword()));
+	}
+	
 	
 	// --------------------------------------  USERS -------------------------------------------------
 	

@@ -6,5 +6,6 @@ import com.cg.ama.entity.UserEntity;
 
 @Repository
 public interface UserRepo extends JpaRepository<UserEntity, Long>{
-	
+	boolean existsByUserName(String userName);
+	UserEntity findByUserName(String userName);
 }
