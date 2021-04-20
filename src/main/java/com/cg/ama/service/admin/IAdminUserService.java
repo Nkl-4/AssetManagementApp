@@ -3,6 +3,7 @@ package com.cg.ama.service.admin;
 import java.util.List;
 
 import com.cg.ama.exception.DuplicateEntryException;
+import com.cg.ama.exception.LoginFailedException;
 import com.cg.ama.exception.UserNotFoundException;
 import com.cg.ama.model.UserModel;
 
@@ -18,5 +19,5 @@ public interface IAdminUserService {
 	
 	String deleteUserById(Long userId) throws UserNotFoundException;
 	
-	UserModel userLogin(String userId, String userPass) throws UserNotFoundException;
+	UserModel userLogin(String userId, String userPass) throws LoginFailedException, UserNotFoundException;
 }

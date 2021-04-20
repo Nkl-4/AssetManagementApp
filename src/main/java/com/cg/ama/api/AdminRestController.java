@@ -25,6 +25,7 @@ import com.cg.ama.exception.InvalidAssetDetailsException;
 import com.cg.ama.exception.InvalidShipmentDetailsException;
 import com.cg.ama.exception.InvalidUserDetailsException;
 import com.cg.ama.exception.InvalidWarehouseDetailsException;
+import com.cg.ama.exception.LoginFailedException;
 import com.cg.ama.exception.ShipmentNotFoundException;
 import com.cg.ama.exception.UserNotFoundException;
 import com.cg.ama.exception.WarehouseNotFoundException;
@@ -58,7 +59,7 @@ public class AdminRestController {
 	// -------------------------------------- LOGIN -------------------------------------------------		
 	
 	@PostMapping("/login")
-	public ResponseEntity<UserModel> checkUserCred(@RequestBody UserModel userModel, BindingResult result) throws UserNotFoundException {
+	public ResponseEntity<UserModel> checkUserCred(@RequestBody UserModel userModel, BindingResult result) throws UserNotFoundException, LoginFailedException {
 		return ResponseEntity.ok(adminUserService.userLogin(userModel.getUserName(),userModel.getUserPassword()));
 	}
 	

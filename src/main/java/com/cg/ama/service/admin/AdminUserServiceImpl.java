@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.ama.exception.DuplicateEntryException;
+import com.cg.ama.exception.LoginFailedException;
 import com.cg.ama.exception.UserNotFoundException;
 import com.cg.ama.model.UserModel;
 import com.cg.ama.repo.UserRepo;
@@ -87,7 +88,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	}
 
 	@Override
-	public UserModel userLogin(String userName, String userPass) throws UserNotFoundException {
+	public UserModel userLogin(String userName, String userPass) throws LoginFailedException, UserNotFoundException{
 		if(!userRepo.existsByUserName(userName)) {
 			throw new UserNotFoundException("User Not present in DB.");
 		}
@@ -95,7 +96,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 		UserModel userFromDb = parser.parse(userRepo.findByUserName(userName));
 		
 		if(!userFromDb.getUserPassword().equals(userPass)) {
-			throw new UserNotFoundException("Wrong Password");
+			throw new LoginFailedException("Username / Password is wrong.");
 		}
 
 		

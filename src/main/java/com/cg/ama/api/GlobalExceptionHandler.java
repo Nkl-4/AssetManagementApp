@@ -13,6 +13,7 @@ import com.cg.ama.exception.DuplicateEntryException;
 import com.cg.ama.exception.InvalidAssetDetailsException;
 import com.cg.ama.exception.InvalidShipmentDetailsException;
 import com.cg.ama.exception.InvalidUserDetailsException;
+import com.cg.ama.exception.LoginFailedException;
 import com.cg.ama.exception.ShipmentNotFoundException;
 import com.cg.ama.exception.UserNotFoundException;
 
@@ -34,6 +35,12 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<Object> handleDuplicateExceptions(Exception exp){
 		return new ResponseEntity<Object>(exp.getMessage(), HttpStatus.CONFLICT);
 	}
+	
+	@ExceptionHandler(value = {LoginFailedException.class})
+	public ResponseEntity<Object> LoginFailed(Exception exp){
+		return new ResponseEntity<Object>(exp.getMessage(), HttpStatus.UNAUTHORIZED);
+	}
+	
 		
 	
 	@ExceptionHandler(value = Exception.class)
