@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import com.cg.ama.model.ShipmentModel;
 import com.cg.ama.service.user.IUserAssetService;
 import com.cg.ama.service.user.IUserShipmentService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserRestController {
