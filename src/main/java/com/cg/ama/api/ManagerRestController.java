@@ -54,7 +54,7 @@ public class ManagerRestController {
 		
 	@PutMapping("/assets/modify/{assetId}")
 	public ResponseEntity<AssetModel> modifyAsset (
-			@PathVariable("AssetId") Long userId,
+			@PathVariable("assetId") Long userId,
 			@RequestBody @Valid AssetModel assetModel,
 			BindingResult result)  throws InvalidAssetDetailsException, AssetNotFoundException {
 		
