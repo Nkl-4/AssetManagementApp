@@ -31,7 +31,8 @@ public class UserAssetServiceImpl implements IUserAssetService {
 		this.parser = new EMParser();
 		this.assetRepo = assetRepo;
 	}
-
+	
+	//Get asset by id if not found return exception
 	@Override
 	public AssetModel getAssetById(long assetId) throws AssetNotFoundException {
 		if (!assetRepo.existsById(assetId)) {
@@ -40,6 +41,7 @@ public class UserAssetServiceImpl implements IUserAssetService {
 		return parser.parse((assetRepo.findById(assetId).orElse(null)));
 	}
 	
+	//Get all assets if not found return exception
 	@Override
 	public List<AssetModel> getAssetList() {
 		return assetRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());

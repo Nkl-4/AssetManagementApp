@@ -58,6 +58,7 @@ public class AdminRestController {
 	
 	// -------------------------------------- LOGIN -------------------------------------------------		
 	
+	// Input  -> userName, userPass, Output -> User Info
 	@PostMapping("/login")
 	public ResponseEntity<UserModel> checkUserCred(@RequestBody UserModel userModel, BindingResult result) throws UserNotFoundException, LoginFailedException {
 		return ResponseEntity.ok(adminUserService.userLogin(userModel.getUserName(),userModel.getUserPassword()));
@@ -66,16 +67,19 @@ public class AdminRestController {
 	
 	// --------------------------------------  USERS -------------------------------------------------
 	
+	// return user info	
 	@GetMapping("/users/get/{userId}")
 	public ResponseEntity<UserModel> getUsersById(@PathVariable("userId") Long userId) throws UserNotFoundException{
 		return ResponseEntity.ok(adminUserService.getUserById((userId)));
 	}
 	
+	// return all users 
 	@GetMapping("/users/get/all")
 	public ResponseEntity<List<UserModel>> getAllUsers() throws UserNotFoundException{
 		return ResponseEntity.ok(adminUserService.getUsers());
 	}
 	
+	// add user
 	@PostMapping("/users")
 	public ResponseEntity<String> createUser(@RequestBody @Valid UserModel userModel, BindingResult result) throws InvalidUserDetailsException, DuplicateEntryException {
 		
@@ -86,6 +90,7 @@ public class AdminRestController {
 		return new ResponseEntity<String>("User "+ userModel1.getUserId() +" Created", HttpStatus.CREATED);
 	}
 	
+	// modify user data
 	@PutMapping("/users/modify/{userId}")
 	public ResponseEntity<UserModel> modifyUser(
 			@PathVariable("userId") Long userId,
@@ -98,7 +103,8 @@ public class AdminRestController {
 		
 		return ResponseEntity.ok(adminUserService.modifyUser(userId, userModel));
 	}
-			
+	
+	// delete user with uid
 	@DeleteMapping("/users/delete/{userId}")
 	public ResponseEntity<String> deleteUserById(@PathVariable("userId") Long userId) throws UserNotFoundException {
 		return ResponseEntity.ok(adminUserService.deleteUserById(userId));
@@ -106,16 +112,19 @@ public class AdminRestController {
 	
 	// ---------------------------------------------- ASSET   -----------------------------------------------
 	
+	// fetch asset info with id
 	@GetMapping("/assets/get/{assetId}")
 	public ResponseEntity<AssetModel> getAssetsById(@PathVariable("assetId") Long assetId) throws AssetNotFoundException{
 		return ResponseEntity.ok(adminAssetService.getAssetById((assetId)));
 	}
 	
+	// fetch all assets
 	@GetMapping("/assets/get/all")
 	public ResponseEntity<List<AssetModel>> getAllAssets() throws AssetNotFoundException{
 		return ResponseEntity.ok(adminAssetService.getAssetList());
 	}
 	
+	// add asset
 	@PostMapping("/assets")
 	public ResponseEntity<AssetModel> createAsset(
 			@RequestBody @Valid AssetModel assetModel,
@@ -128,6 +137,7 @@ public class AdminRestController {
 		return ResponseEntity.ok(adminAssetService.addAsset(assetModel));
 	}
 	
+	// modify asset 
 	@PutMapping("/assets/modify/{assetId}")
 	public ResponseEntity<AssetModel> modifyAsset (
 			@PathVariable("assetId") Long assetId,
@@ -141,6 +151,7 @@ public class AdminRestController {
 		return ResponseEntity.ok(adminAssetService.modifyAsset(assetId, assetModel));
 	}
 	
+	// delete asset
 	@DeleteMapping("/assets/delete/{assetId}")
 	public ResponseEntity<String> deleteAssetById(@PathVariable("assetId") Long assetId) throws AssetNotFoundException {
 		return ResponseEntity.ok(adminAssetService.deleteAssetById(assetId));
@@ -148,16 +159,19 @@ public class AdminRestController {
 	
 	// ---------------------------------------------- WAREHOUSE   -----------------------------------------------
 	
+	// get warehouse info 
 	@GetMapping("/warehouses/get/{warehouseId}")
 	public ResponseEntity<WarehouseModel> getWarehouseById(@PathVariable("warehouseId") Long warehouseId) throws WarehouseNotFoundException{
 		return ResponseEntity.ok(adminWarehouseService.getWareHouseById(warehouseId));
 	}
 	
+	// get all warehouses
 	@GetMapping("/warehouses/get/all")
 	public ResponseEntity<List<WarehouseModel>> getAllWarehouses() throws WarehouseNotFoundException{
 		return ResponseEntity.ok(adminWarehouseService.getWarehouseList());
 	}
 	
+	// add warehouse
 	@PostMapping("/warehouses")
 	public ResponseEntity<WarehouseModel> createWarehouse(@RequestBody @Valid WarehouseModel warehouseModel, BindingResult result) throws InvalidWarehouseDetailsException, DuplicateEntryException {
 		
@@ -168,11 +182,13 @@ public class AdminRestController {
 		return ResponseEntity.ok(adminWarehouseService.addWarehouse(warehouseModel));
 	}
 	
+	// get assets in a warehouse
 	@GetMapping("/warehouses/get/assets/{warehouseId}")
 	public ResponseEntity<List<AssetModel>> getAllAssetsFromWarehouse(@PathVariable("warehouseId") Long warehouseId) throws WarehouseNotFoundException{
 		return ResponseEntity.ok(adminWarehouseService.getAllAssets(warehouseId));
 	}
 	
+	// modify warehouse info
 	@PutMapping("/warehouses/modify/{warehouseId}")
 	public ResponseEntity<WarehouseModel> modifyAsset (
 			@PathVariable("warehouseId") Long warehouseId,
@@ -186,23 +202,27 @@ public class AdminRestController {
 		return ResponseEntity.ok(adminWarehouseService.modifyWarehouse(warehouseId, warehouseModel));
 	}
 	
+	// delete warehouse
 	@DeleteMapping("/warehouses/delete/{warehouseId}")
 	public ResponseEntity<String> deleteWarehouseById(@PathVariable("warehouseId") Long warehouseId) throws WarehouseNotFoundException {
 		return ResponseEntity.ok(adminWarehouseService.deleteWarehouseById(warehouseId));
 	}
 		
 	// ---------------------------------------------- SHIPMENT   -----------------------------------------------
-		
+	
+	// get shipment info
 	@GetMapping("/shipments/get/{shipmentId}")
 	public ResponseEntity<ShipmentModel> getShipmentById(@PathVariable("shipmentId") Long shipmentId) throws ShipmentNotFoundException {
 		return ResponseEntity.ok(adminShipmentService.getShipmentById(shipmentId));
 	}
-		
+	
+	// get all shipments
 	@GetMapping("/shipments/get/all")
 	public ResponseEntity<List<ShipmentModel>> getAllShipments() throws ShipmentNotFoundException {
 		return ResponseEntity.ok(adminShipmentService.getShipments());
 	}
-		
+	
+	// add shipment
 	@PostMapping("/shipments")
 	public ResponseEntity<ShipmentModel> createShipment(@RequestBody @Valid ShipmentModel shipmentModel, BindingResult result) throws InvalidShipmentDetailsException
 							, DuplicateEntryException, AssetNotFoundException, WarehouseNotFoundException {
@@ -214,6 +234,7 @@ public class AdminRestController {
 		return ResponseEntity.ok(adminShipmentService.addShipment(shipmentModel));
 	}
 	
+	// modisy shipment
 	@PutMapping("/shipments/modify/{shipmentId}")
 	public ResponseEntity<ShipmentModel> modifyShipment (
 			@PathVariable("shipmentId") Long shipmentId,
@@ -226,13 +247,15 @@ public class AdminRestController {
 		
 		return ResponseEntity.ok(adminShipmentService.modifyShipment(shipmentId, shipmentModel));
 	}
-		
+
+	// delete shipment
 	@DeleteMapping("/shipments/delete/{shipmentId}")
 	public ResponseEntity<String> deleteShipmentById(@PathVariable("shipmentId") Long shipmentId) throws ShipmentNotFoundException {
 		return ResponseEntity.ok(adminShipmentService.deleteShipmentById(shipmentId));
 						
 	}
 	
+	// set delivered status to shipment
 	@GetMapping("/shipments/status/delivered")
 	public ResponseEntity<String> setStatus(@RequestParam(name = "shipmentId") Long shipmentId) throws ShipmentNotFoundException  {
 		return ResponseEntity.ok(adminShipmentService.modifyShipmentStatus(shipmentId));
@@ -244,11 +267,13 @@ public class AdminRestController {
 	@Autowired
 	IReportService reportService;
 	
+	// get report by month and year
 	@GetMapping("/shipments/report/month")
 	public ResponseEntity<List<ShipmentModel>> getReport(@RequestParam(name = "month") int month, @RequestParam(name = "year") int year)  {
 		return ResponseEntity.ok(reportService.getShipmentsByMonth(month, year));
 	}
 	
+	// get report by week
 	@GetMapping("/shipments/report/week")
 	public ResponseEntity<List<ShipmentModel>> getReportByWeek(
 			@RequestParam(name = "week") int week,
@@ -257,11 +282,13 @@ public class AdminRestController {
 		return ResponseEntity.ok(reportService.getShipmentsByWeek(week, month, year));
 	}
 	
+	// get weekly reports
 	@GetMapping("/shipments/report/general/weekly")
 	public ResponseEntity<List<ShipmentModel>> findAllByWeekly(){
 		return ResponseEntity.ok(reportService.findAllByWeekly());
 	}
 	
+	// get monthly reports
 	@GetMapping("/shipments/report/general/monthly")
 	public ResponseEntity<List<ShipmentModel>> findAllByMonthly(){
 		return ResponseEntity.ok(reportService.findAllByMonthly());

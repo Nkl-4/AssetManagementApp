@@ -30,7 +30,8 @@ public class ReportServiceImpl implements IReportService {
 		this.parser = new EMParser();
 		this.shipmentRepo = shipmentRepo;
 	}
-
+	
+	//Report for getting a particular week
 	@Override
 	public List<ShipmentModel> getShipmentsByWeek(int week, int month, int year) {
 		
@@ -60,6 +61,7 @@ public class ReportServiceImpl implements IReportService {
 		return shipmentRepo.getShipmentsInfo(startDate, endDate).stream().map(parser::parse).collect(Collectors.toList());
 	}
 
+	//Report for a particular month
 	@Override
 	public List<ShipmentModel> getShipmentsByMonth(int month, int year) {
 		LocalDate startDate = LocalDate.of(year, month, 01);
@@ -68,11 +70,13 @@ public class ReportServiceImpl implements IReportService {
 		return shipmentRepo.getShipmentsInfo(startDate, endDate).stream().map(parser::parse).collect(Collectors.toList());
 	}
 	
+	//Report for any week
 	@Override
 	public List<ShipmentModel> findAllByWeekly() {
 		return shipmentRepo.getShipmentsInfoWeekly().stream().map(parser::parse).collect(Collectors.toList());
 			}
 	
+	//report for any month
 	@Override
 	public List<ShipmentModel> findAllByMonthly() {
 		return shipmentRepo.getShipmentsInfoWeekly().stream().map(parser::parse).collect(Collectors.toList());

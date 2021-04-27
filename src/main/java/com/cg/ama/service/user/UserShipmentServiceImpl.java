@@ -32,7 +32,7 @@ public class UserShipmentServiceImpl implements IUserShipmentService {
 		this.shipmentRepo = shipmentRepo;
 	}
 
-
+	//Get shipment by id if not found return exception
 	@Override
 	public ShipmentModel getShipmentById(Long shipmentId) throws ShipmentNotFoundException {
 		if (!shipmentRepo.existsById(shipmentId)) {
@@ -41,7 +41,7 @@ public class UserShipmentServiceImpl implements IUserShipmentService {
 		return parser.parse((shipmentRepo.findById(shipmentId).orElse(null)));
 	}
 
-
+	//Get all shipments if not found return exception
 	@Override
 	public List<ShipmentModel> getShipments() {
 		return shipmentRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());

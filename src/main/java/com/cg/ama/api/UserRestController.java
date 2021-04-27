@@ -30,11 +30,13 @@ public class UserRestController {
 
 	// ---------------------------------------------- ASSET   -----------------------------------------------
 	
+	// to fetch asset by ID
 	@GetMapping("/assets/get/{assetId}")
 	public ResponseEntity<AssetModel> getAssetsById(@PathVariable("assetId") Long assetId) throws AssetNotFoundException {
 		return ResponseEntity.ok(userAssetService.getAssetById(assetId));
 	}
 	
+	// to fetch all asset details
 	@GetMapping("/assets/get/all")
 	public ResponseEntity<List<AssetModel>> getAllAssets() throws AssetNotFoundException{
 		return ResponseEntity.ok(userAssetService.getAssetList());
@@ -43,12 +45,14 @@ public class UserRestController {
 	
 			
 	// ---------------------------------------------- SHIPMENT   -----------------------------------------------
-		
+	
+	// to fetch all shipment details
 	@GetMapping("/shipments/get/{shipmentId}")
 	public ResponseEntity<ShipmentModel> getShipmentById(@PathVariable("shipmentId") Long shipmentId) throws ShipmentNotFoundException {
 		return ResponseEntity.ok(userShipmentService.getShipmentById(shipmentId));
 	}
-		
+	
+	// to fetch shipment by ID
 	@GetMapping("/shipments/get/all")
 	public ResponseEntity<List<ShipmentModel>> getAllShipments() throws ShipmentNotFoundException {
 		return ResponseEntity.ok(userShipmentService.getShipments());

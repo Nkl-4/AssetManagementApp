@@ -41,6 +41,7 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	}
 
 	@Override
+	//accessing warehouse details by warehouseID and if not found throws WarehouseNotFoundException
 	public WarehouseModel getWareHouseById(Long warehouseId) throws WarehouseNotFoundException {
 		if (!warehouseRepo.existsById(warehouseId)) {
 			throw new WarehouseNotFoundException("No Warehouse present with the given ID");
@@ -50,6 +51,7 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	
 	@Transactional
 	@Override
+	//adding warehouse to the database and if same details are entered throws duplicate entry exception
 	public WarehouseModel addWarehouse(WarehouseModel wareHouseModel) throws DuplicateEntryException {
 		if(wareHouseModel != null) {
 			if (warehouseRepo.existsById(wareHouseModel.getWhId())) {
@@ -61,12 +63,14 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	}
 
 	@Override
+	//accessing details of all warehouses
 	public List<WarehouseModel> getWarehouseList() {
 		return warehouseRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 	
 	@Transactional
 	@Override
+	//changing and updating the details of a particular warehouse
 	public WarehouseModel modifyWarehouse(Long warehouseId, WarehouseModel wareHouseModel)
 			throws WarehouseNotFoundException {
 		if(wareHouseModel != null) {
@@ -79,6 +83,7 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	}
 
 	@Override
+	//deleting a user based on its respective warehouseID
 	public String deleteWarehouseById(Long warehouseId) throws WarehouseNotFoundException {
 		if (!warehouseRepo.existsById(warehouseId)) {
 			throw new WarehouseNotFoundException("No Warehouse present with the given ID");
@@ -88,6 +93,7 @@ public class AdminWarehouseServiceImpl implements IAdminWarehouseService {
 	}
 
 	@Override
+	// to fetch all asset details from warehouse
 	public List<AssetModel> getAllAssets(Long warehouseId) throws WarehouseNotFoundException {
 		if (!warehouseRepo.existsById(warehouseId)) {
 			throw new WarehouseNotFoundException("No Warehouse present with the given ID");

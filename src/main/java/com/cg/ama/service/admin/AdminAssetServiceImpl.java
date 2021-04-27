@@ -36,9 +36,11 @@ public class AdminAssetServiceImpl implements IAdminAssetService{
 
 	@Override
 	public AssetModel getAssetById(Long assetId) throws AssetNotFoundException {
+		// checking if id is present or not, if not then if condition will work
 		if (!assetRepo.existsById(assetId)) {
 			throw new AssetNotFoundException("No Asset present with the given ID");
 		}
+		// if id is found
 		return parser.parse((assetRepo.findById(assetId).orElse(null)));
 	}
 	
@@ -46,6 +48,8 @@ public class AdminAssetServiceImpl implements IAdminAssetService{
 	@Override
 	public AssetModel addAsset(AssetModel assetModel) throws DuplicateEntryException {
 		if(assetModel != null) {
+			
+			//checking if id is present or not, if present then if condition will work
 			if (assetRepo.existsById(assetModel.getAssetId())) {
 				throw new DuplicateEntryException("Asset already present in DB.");
 			}
@@ -56,6 +60,8 @@ public class AdminAssetServiceImpl implements IAdminAssetService{
 
 	@Override
 	public List<AssetModel> getAssetList(){
+		
+		//to collect all the data
 		return assetRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 

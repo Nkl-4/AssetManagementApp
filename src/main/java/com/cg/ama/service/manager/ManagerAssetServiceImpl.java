@@ -35,15 +35,19 @@ public class ManagerAssetServiceImpl implements IManagerAssetService {
 		this.assetRepo = assetRepo;
 		this.warehouseRepo = warehouseRepo;
 	}
-
+	
+	// to get asset by id
 	@Override
 	public AssetModel getAssetById(long assetId) throws AssetNotFoundException {
+		//checking if id is present or not
 		if (!assetRepo.existsById(assetId)) {
 			throw new AssetNotFoundException("No Asset present with the given ID");
 		}
+		// if id is found
 		return parser.parse((assetRepo.findById(assetId).orElse(null)));
 	}
 	
+	//to modify all the assets
 	@Override
 	public List<AssetModel> getAssetList()  {
 		return assetRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
@@ -59,7 +63,8 @@ public class ManagerAssetServiceImpl implements IManagerAssetService {
 		}
 		return assetModel;
 	}
-
+	
+	//to display all the assets
 	@Override
 	public List<AssetModel> getAllAssets(Long warehouseId) throws WarehouseNotFoundException {
 		if (!warehouseRepo.existsById(warehouseId)) {

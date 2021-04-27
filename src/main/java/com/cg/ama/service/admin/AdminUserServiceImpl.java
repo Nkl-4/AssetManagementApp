@@ -36,6 +36,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	}
 
 	@Override
+	//accessing user details by userID and if not found throws User not Found exception
 	public UserModel getUserById(Long userId) throws UserNotFoundException {
 		if (!userRepo.existsById(userId)) {
 			throw new UserNotFoundException("No user present with the given ID");
@@ -45,6 +46,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	
 	@Transactional
 	@Override
+	//adding user to the database and if same details are entered throws duplicate entry exception
 	public UserModel addUser(UserModel userModel) throws DuplicateEntryException {
 		
 		if(userModel != null) {
@@ -57,11 +59,13 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	}
 
 	@Override
+	//accessing details of all users
 	public List<UserModel> getUsers()  {
 		return userRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 
 	@Override
+	//deleting a user based on its respective UserID
 	public String deleteUserById(Long userId) throws UserNotFoundException {
 		if (!userRepo.existsById(userId)) {
 			throw new UserNotFoundException("No user present with the given ID");
@@ -72,6 +76,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	
 	@Transactional
 	@Override
+	//changing and updating the details of a particular user
 	public UserModel modifyUser(Long userId, UserModel userModel) throws UserNotFoundException {
 		if(userModel != null) {
 			if (!userRepo.existsById(userId)) {
@@ -88,6 +93,7 @@ public class AdminUserServiceImpl implements IAdminUserService {
 	}
 
 	@Override
+	//user login and if the credentials are not true throws LoginFailedException or serNotFoundException
 	public UserModel userLogin(String userName, String userPass) throws LoginFailedException, UserNotFoundException{
 		if(!userRepo.existsByUserName(userName)) {
 			throw new UserNotFoundException("User Not present in DB.");

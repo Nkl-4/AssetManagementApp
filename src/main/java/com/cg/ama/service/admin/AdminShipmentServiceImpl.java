@@ -36,6 +36,7 @@ public class AdminShipmentServiceImpl implements IAdminShipmentService {
 
 	@Override
 	public ShipmentModel getShipmentById(Long shipmentId) throws ShipmentNotFoundException {
+		// if id is not present if condition will execute
 		if (!shipmentRepo.existsById(shipmentId)) {
 			throw new ShipmentNotFoundException("No shipment present with the given ID");
 		}
@@ -46,16 +47,19 @@ public class AdminShipmentServiceImpl implements IAdminShipmentService {
 	@Override
 	public ShipmentModel addShipment(ShipmentModel shipmentModel) throws DuplicateEntryException {
 		if(shipmentModel != null) {
+			// if id is present in the DB 
 			if (shipmentRepo.existsById(shipmentModel.getShipmentId())) {
 				throw new DuplicateEntryException("Shipment already present in DB.");
 			}
 			shipmentModel = parser.parse((shipmentRepo.save(parser.parse(shipmentModel))));
 		}
+		// if is not present in the DB
 		return shipmentModel;
 	}
 
 	@Override
 	public List<ShipmentModel> getShipments() {
+		// to collect the data
 		return shipmentRepo.findAll().stream().map(parser::parse).collect(Collectors.toList());
 	}
 	
@@ -63,6 +67,7 @@ public class AdminShipmentServiceImpl implements IAdminShipmentService {
 	@Override
 	public ShipmentModel modifyShipment(Long shipmentId, ShipmentModel shipmentModel) throws ShipmentNotFoundException {
 		if(shipmentModel != null) {
+			// if id is not present in the DB 
 			if (!shipmentRepo.existsById(shipmentId)) {
 				throw new ShipmentNotFoundException("Shipment Not present in DB.");
 			}
@@ -73,6 +78,7 @@ public class AdminShipmentServiceImpl implements IAdminShipmentService {
 
 	@Override
 	public String deleteShipmentById(Long shipmentId) throws ShipmentNotFoundException {
+		// if id is not present in the DB 
 		if (!shipmentRepo.existsById(shipmentId)) {
 			throw new ShipmentNotFoundException("No Shipment present with the given ID");
 		}
@@ -82,6 +88,7 @@ public class AdminShipmentServiceImpl implements IAdminShipmentService {
 
 	@Override
 	public String modifyShipmentStatus(Long shipmentId) throws ShipmentNotFoundException {
+		// if id is present in the DB 
 		if (!shipmentRepo.existsById(shipmentId)) {
 			throw new ShipmentNotFoundException("No Shipment present with the given ID");
 		}
